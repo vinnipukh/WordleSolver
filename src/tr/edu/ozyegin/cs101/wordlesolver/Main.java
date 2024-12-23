@@ -1,6 +1,7 @@
 package tr.edu.ozyegin.cs101.wordlesolver;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,15 +26,21 @@ public class Main {
             int index;
 
             if(guessCount > 0){
-                index = random.nextInt(wordList.getWords().size());
+                if (wordList.getWords().isEmpty()) {
+                    System.out.println("This word is not in the word list which is provided. Try again!");
+                    finished = true;
+                    break;
+                }
+                index = wordList.generateNextGuessIndex(wordList);
 
             }else {
-                index = 8792;
+                index = 9463;
             }
-
+            System.out.println(wordList.getWords());
             guessCount++;
             if(wordList.getWords().isEmpty()){
                 System.out.println("The word is not in the word list. Try again!");
+                finished = true;
                 break;
 
             }
