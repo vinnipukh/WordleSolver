@@ -15,7 +15,7 @@ public class WordList {
     }
 
     public void loadWords(String path) throws IOException {
-        this.words = new ArrayList<String>();
+        this.words = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             String line;
@@ -31,7 +31,7 @@ public class WordList {
     }
 
     public void reduce(Word guess, Feedback feedback) {
-        ArrayList<String> newWords = new ArrayList<String>();
+        ArrayList<String> newWords = new ArrayList<>();
 
         for (String wordString : this.words) {
             Word word = new Word(wordString);
@@ -43,8 +43,8 @@ public class WordList {
             }
         }
 
+        System.out.println("Words remaining after reduction: " + newWords);
         this.words = newWords;
-
     }
 
     public int generateNextGuessIndex(WordList wordList) {

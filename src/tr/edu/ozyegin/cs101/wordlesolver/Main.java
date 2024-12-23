@@ -76,8 +76,7 @@ public class Main {
 
 
             else{
-                System.out.println("Feedback waas: " + feedback);
-
+                System.out.println("Feedback was: " + feedback);
 
                 Feedback actualFeedback = new Feedback(feedback);
 
