@@ -17,16 +17,28 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        int guessCount = 0;
+
 
 
         while (!finished) {
-            int index = random.nextInt(wordList.getWords().size());
+            int index;
+
+            if(guessCount > 0){
+                index = random.nextInt(wordList.getWords().size());
+
+            }else {
+                index = 8792;
+            }
+
+            guessCount++;
             if(wordList.getWords().isEmpty()){
                 System.out.println("The word is not in the word list. Try again!");
-                finished = true;
                 break;
 
             }
+
+
 
             String guess = wordList.getWords().get(index);
 
