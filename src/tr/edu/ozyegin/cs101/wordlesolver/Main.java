@@ -17,16 +17,27 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+
+
         while (!finished) {
             int index = random.nextInt(wordList.getWords().size());
+            if(wordList.getWords().isEmpty()){
+                System.out.println("The word is not in the word list. Try again!");
+                finished = true;
+                break;
+
+            }
 
             String guess = wordList.getWords().get(index);
+
+
 
             System.out.println("My guess is: " + guess);
 
             System.out.println("Enter feedback:");
 
             String feedback;
+
             boolean isValid;
 
             do {
@@ -39,23 +50,22 @@ public class Main {
                 }
 
             } while(!isValid);
-
-            System.out.println("Feedback waas: " + feedback);
-
-
-            Feedback actualFeedback = new Feedback(feedback);
-
-            wordList.reduce(new Word(guess),actualFeedback);
+            if(feedback.equalsIgnoreCase("ggggg")){
+                System.out.println("We have guessed the word correctly!");
+                finished = true;
+            }
 
 
+            else{
+                System.out.println("Feedback waas: " + feedback);
 
 
+                Feedback actualFeedback = new Feedback(feedback);
+
+                wordList.reduce(new Word(guess),actualFeedback);
+
+            }
         }
-
-
-
-
-
     }
 
     public static boolean isValidFeedback(String input) {
