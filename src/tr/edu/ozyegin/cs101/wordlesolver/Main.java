@@ -9,7 +9,7 @@ public class Main {
 
         WordList wordList = new WordList();
 
-        wordList.loadWords("/Users/safkan/IdeaProjects/WordleSolver2/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+        wordList.loadWords("/home/tachyonos/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
 
         Random random = new Random();
 
