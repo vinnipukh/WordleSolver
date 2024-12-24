@@ -30,14 +30,7 @@ public class Analysis {
 
 
             }
-
-
-
-
         }
-
-
-
     }
 
     public static int maximumFeedbackSetCountForWord(WordList wordlist, Word word){
