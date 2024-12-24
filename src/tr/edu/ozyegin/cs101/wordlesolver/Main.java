@@ -69,7 +69,7 @@ public class Main {
                 index = 9463; // Pre-chosen "salet" as the starting word
             }
 
-            System.out.println(wordList.getWords());
+            //System.out.println(wordList.getWords());
             guessCount++;
             if (wordList.getWords().isEmpty()) {
                 System.out.println("The word is not in the word list. Try again!");
@@ -87,21 +87,34 @@ public class Main {
 
             do {
                 if (wordle == null) {
-                    feedback = scanner.nextLine();
+                    // Display an input dialog box to get feedback from the user
+                    feedback = JOptionPane.showInputDialog(null,
+                            "Enter feedback (b/y/g for each letter):",
+                            "Feedback Input",
+                            JOptionPane.PLAIN_MESSAGE);
+
+                    // If the user cancels or closes the dialog, end the program
+                    if (feedback == null) {
+                        JOptionPane.showMessageDialog(null, "Input canceled. Exiting the game.");
+                        System.exit(0);
+                    }
 
                     isValid = isValidFeedback(feedback);
 
                 } else {
-                    // There is a Wordle given. Play with that.
                     feedback = wordle.toString();
                     isValid = true;
                 }
 
                 if (!isValid) {
-                    System.out.println("Invalid feedback. Try again.");
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid feedback. Please enter b/y/g for each letter.",
+                            "Invalid Input",
+                            JOptionPane.ERROR_MESSAGE);
                 }
 
             } while (!isValid);
+
 
             System.out.println("Feedback was: " + feedback);
 
