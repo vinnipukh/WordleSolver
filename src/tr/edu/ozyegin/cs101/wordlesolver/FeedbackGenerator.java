@@ -24,6 +24,22 @@ public class FeedbackGenerator {
             }
         }
 
-        return new Feedback(feedback);
+        // Convert feedback array to String
+        StringBuilder feedbackString = new StringBuilder();
+        for (int f : feedback) {
+            switch (f) {
+                case Feedback.GREEN:
+                    feedbackString.append('G');
+                    break;
+                case Feedback.YELLOW:
+                    feedbackString.append('Y');
+                    break;
+                case Feedback.BLACK:
+                    feedbackString.append('B');
+                    break;
+            }
+        }
+
+        return new Feedback(feedbackString.toString());
     }
 }

@@ -7,6 +7,10 @@ public class Word {
         this.word = word;
     }
 
+    public String getValue() {
+        return word;
+    }
+
     public Feedback generateFeedbackWithActualWord(Word actualWord) {
         int[] feedback = new int[WordleSolver.WORD_SIZE];
         boolean[] usedInActual = new boolean[WordleSolver.WORD_SIZE];
@@ -51,6 +55,7 @@ public class Word {
                     break;
             }
         }
+
 
         return new Feedback(feedbackString.toString());
     }
