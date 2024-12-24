@@ -1,50 +1,24 @@
 package tr.edu.ozyegin.cs101.wordlesolver;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // Setup the GUI
-        JFrame frame = new JFrame("Wordle Solver Output");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
-
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false); // Read-only text area
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.add(scrollPane, BorderLayout.CENTER);
-
-        // Redirect console output to the JTextArea
-        PrintStream printStream = new PrintStream(new OutputStreamToTextArea(textArea));
-        System.setOut(printStream);
-        System.setErr(printStream);
-
-        frame.setVisible(true);
-
-        // Start the Wordle solver
-        playWordle(null);
-
         WordList wordList = new WordList();
         wordList.loadWords("/home/tachyonos/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
 
         int n = 0, sum = 0;
 
-        /*
         for (String secretWordString : wordList.getWords()) {
             Word secretWord = new Word(secretWordString);
             Wordle wordle = new Wordle(secretWord);
             int guesses = playWordle(wordle);
             n++;
             sum += guesses;
-            System.out.println("Played " + n + " times used " + guesses + " guesses, average: " + (double) sum / n);
+            JOptionPane.showMessageDialog(null, "Played " + n + " times used " + guesses + " guesses, average: " + (double) sum / n);
         }
-        */
     }
 
     public static int playWordle(Wordle wordle) throws IOException {
@@ -60,69 +34,44 @@ public class Main {
 
             if (guessCount > 0) {
                 if (wordList.getWords().isEmpty()) {
-                    System.out.println("This word is not in the word list which is provided, I give up...");
+                    JOptionPane.showMessageDialog(null, "This word is not in the word list which is provided, I give up...");
                     finished = true;
+                    break;
                 }
                 index = wordList.generateNextGuessIndex(wordList);
-
             } else {
-                index = 9463; // Pre-chosen "salet" as the starting word
+                index = 9463; // chosen word "salet" as it gives the most information
             }
 
-            //System.out.println(wordList.getWords());
             guessCount++;
             if (wordList.getWords().isEmpty()) {
-                System.out.println("The word is not in the word list. Try again!");
+                JOptionPane.showMessageDialog(null, "The word is not in the word list. Try again!");
                 finished = true;
+                break;
             }
 
             String guess = wordList.getWords().get(index);
-            System.out.println("My guess is: " + guess);
+            JOptionPane.showMessageDialog(null, "My guess is: " + guess);
 
             Feedback actualFeedback;
-            System.out.println("Enter feedback:");
-
             String feedback;
             boolean isValid;
 
             do {
-                if (wordle == null) {
-                    // Display an input dialog box to get feedback from the user
-                    feedback = JOptionPane.showInputDialog(null,
-                            "Enter feedback (b/y/g for each letter):",
-                            "Feedback Input",
-                            JOptionPane.PLAIN_MESSAGE);
-
-                    // If the user cancels or closes the dialog, end the program
-                    if (feedback == null) {
-                        JOptionPane.showMessageDialog(null, "Input canceled. Exiting the game.");
-                        System.exit(0);
-                    }
-
-                    isValid = isValidFeedback(feedback);
-
-                } else {
-                    feedback = wordle.toString();
-                    isValid = true;
-                }
+                feedback = JOptionPane.showInputDialog("Enter feedback:");
+                isValid = isValidFeedback(feedback);
 
                 if (!isValid) {
-                    JOptionPane.showMessageDialog(null,
-                            "Invalid feedback. Please enter b/y/g for each letter.",
-                            "Invalid Input",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Invalid feedback. Try again.");
                 }
-
             } while (!isValid);
 
-
-            System.out.println("Feedback was: " + feedback);
-
-            actualFeedback = wordle.guessAndGetFeedbackForWord(new Word(guess));
+            JOptionPane.showMessageDialog(null, "Feedback was: " + feedback);
+            actualFeedback = new Feedback(feedback);
 
             wordList.reduce(new Word(guess), actualFeedback);
             if (actualFeedback.isAllGreen()) {
-                System.out.println("We have guessed the word correctly!");
+                JOptionPane.showMessageDialog(null, "We have guessed the word correctly!");
                 finished = true;
             }
         }
@@ -143,10 +92,7 @@ public class Main {
                 default:
                     return false;
             }
-
         }
         return true;
     }
 }
-
-// Helper class to redirec
