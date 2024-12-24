@@ -3,7 +3,7 @@ package tr.edu.ozyegin.cs101.wordlesolver;
 import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-
+import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         WordList wordList = new WordList();
@@ -21,6 +21,7 @@ public class Main {
         }
     }
 
+
     public static int playWordle(Wordle wordle) throws IOException {
         WordList wordList = new WordList();
         wordList.loadWords("/home/tachyonos/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
@@ -33,8 +34,14 @@ public class Main {
             int index;
 
             if (guessCount > 0) {
-                if (wordList.getWords().isEmpty()) {
+                List<String> words = wordList.getWords();
+                if (words.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "This word is not in the word list which is provided, I give up...");
+                    finished = true;
+                    break;
+                }
+                if (words.size() == 1) {
+                    JOptionPane.showMessageDialog(null, "The last possibility is: " + words.get(0));
                     finished = true;
                     break;
                 }
@@ -52,6 +59,9 @@ public class Main {
 
             String guess = wordList.getWords().get(index);
             JOptionPane.showMessageDialog(null, "My guess is: " + guess);
+
+            double probability = calculateProbability(wordList, new Word(guess));
+            JOptionPane.showMessageDialog(null, "Probability of this being the correct word: " + probability * 100 + "%");
 
             Feedback actualFeedback;
             String feedback;
@@ -77,6 +87,13 @@ public class Main {
         }
         return guessCount;
     }
+    public static double calculateProbability(WordList wordList, Word guessWord) {
+        int totalWords = wordList.getWords().size();
+        int possibleWords = wordList.calculateMatchingWords(guessWord);
+
+        return (double) possibleWords / totalWords;
+    }
+
 
     public static boolean isValidFeedback(String input) {
         if (input.length() != WordleSolver.WORD_SIZE) {

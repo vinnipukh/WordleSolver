@@ -1,52 +1,57 @@
 package tr.edu.ozyegin.cs101.wordlesolver;
 
 public class Word {
-    private String letters;
+    private final String word;
 
-    public Word(String letters) {
-        this.letters = letters;
+    public Word(String word) {
+        this.word = word;
     }
 
     public Feedback generateFeedbackWithActualWord(Word actualWord) {
-        char[] feedback = new char[WordleSolver.WORD_SIZE];
+        int[] feedback = new int[WordleSolver.WORD_SIZE];
+        boolean[] usedInActual = new boolean[WordleSolver.WORD_SIZE];
+        boolean[] usedInGuess = new boolean[WordleSolver.WORD_SIZE];
 
-        for (int i = 0; i < feedback.length; i++) {
-            feedback[i] = 'B';
-        }
-
-        char[] actualLetters = actualWord.letters.toCharArray();
-
-        for (int i = 0; i < this.letters.length(); i++) {
-            if (this.letters.charAt(i) == actualLetters[i]) {
-                feedback[i] = 'G';
-                actualLetters[i] = ' ';
+        // First pass: mark greens
+        for (int i = 0; i < WordleSolver.WORD_SIZE; i++) {
+            if (this.word.charAt(i) == actualWord.word.charAt(i)) {
+                feedback[i] = Feedback.GREEN;
+                usedInActual[i] = true;
+                usedInGuess[i] = true;
+            } else {
+                feedback[i] = Feedback.BLACK;
             }
         }
 
-        for (int i = 0; i < this.letters.length(); i++) {
-            char c = this.letters.charAt(i);
+        // Second pass: mark yellows
+        for (int i = 0; i < WordleSolver.WORD_SIZE; i++) {
+            if (feedback[i] == Feedback.GREEN) continue;
 
-            for (int j = 0; j < actualLetters.length; j++) {
-                if (c == actualLetters[j]) {
-                    feedback[i] = 'Y';
-                    actualLetters[j] = ' ';
+            for (int j = 0; j < WordleSolver.WORD_SIZE; j++) {
+                if (!usedInActual[j] && this.word.charAt(i) == actualWord.word.charAt(j)) {
+                    feedback[i] = Feedback.YELLOW;
+                    usedInActual[j] = true;
+                    break;
                 }
             }
         }
 
+        // Convert feedback array to String
+        StringBuilder feedbackString = new StringBuilder();
+        for (int f : feedback) {
+            switch (f) {
+                case Feedback.GREEN:
+                    feedbackString.append('G');
+                    break;
+                case Feedback.YELLOW:
+                    feedbackString.append('Y');
+                    break;
+                case Feedback.BLACK:
+                    feedbackString.append('B');
+                    break;
+            }
+        }
 
-        return new Feedback(new String(feedback));
+        return new Feedback(feedbackString.toString());
     }
-
-    public static void main(String[] args) {
-        Word actual = new Word("cubes");
-        Word guess = new Word("backs");
-
-        Feedback feedback = guess.generateFeedbackWithActualWord(actual);
-
-        System.out.println(feedback);
-
-    }
-
-
 }

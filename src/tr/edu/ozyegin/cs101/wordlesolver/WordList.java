@@ -23,7 +23,6 @@ public class WordList {
                 this.words.add(line);
             }
         }
-
     }
 
     public ArrayList<String> getWords() {
@@ -35,9 +34,7 @@ public class WordList {
 
         for (String wordString : this.words) {
             Word word = new Word(wordString);
-
             Feedback feedbackForWord = guess.generateFeedbackWithActualWord(word);
-
             if (feedbackForWord.equals(feedback)) {
                 newWords.add(wordString);
             }
@@ -49,29 +46,18 @@ public class WordList {
 
     public int generateNextGuessIndex(WordList wordList) {
         int nextGuessIndex = 0;
-
         int minOfMax = Integer.MAX_VALUE;
 
         for (int i = 0; i < wordList.getWords().size(); i++) {
-
-
             String guess = wordList.getWords().get(i);
-
             Word guessWord = new Word(guess);
-
             int maxCount = maximumFeedbackSetCountForWord(guessWord);
-
 
             if (maxCount <= minOfMax) {
                 minOfMax = maxCount;
                 System.out.println("Best Word so far " + guess + " : " + maxCount + " at index " + i);
                 nextGuessIndex = i;
-
-
             }
-            // nextGuess = guessWord;
-
-
         }
         return nextGuessIndex;
     }
@@ -81,19 +67,16 @@ public class WordList {
 
         for (String actualWordString : this.words) {
             Word actualWord = new Word(actualWordString);
-
-            Feedback feedback = word.generateFeedbackWithActualWord(actualWord);
+            Feedback feedback = FeedbackGenerator.generateFeedback(word, actualWord);
 
             if (!feedbackToCountMap.containsKey(feedback.toString())) {
                 feedbackToCountMap.put(feedback.toString(), 0);
-
             }
 
             feedbackToCountMap.replace(feedback.toString(), feedbackToCountMap.get(feedback.toString()) + 1);
-
         }
-        int max = 0;
 
+        int max = 0;
         for (int count : feedbackToCountMap.values()) {
             if (count > max) {
                 max = count;
@@ -102,4 +85,16 @@ public class WordList {
         return max;
     }
 
+    public int calculateMatchingWords(Word guessWord) {
+        int count = 0;
+        for (String wordStr : words) {
+            Word word = new Word(wordStr);
+            Feedback feedback = FeedbackGenerator.generateFeedback(guessWord, word);
+
+            if (feedback.isAllGreen()) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
