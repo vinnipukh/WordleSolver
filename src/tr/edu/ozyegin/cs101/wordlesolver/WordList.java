@@ -25,6 +25,7 @@ public class WordList {
         }
     }
 
+
     public ArrayList<String> getWords() {
         return this.words;
     }

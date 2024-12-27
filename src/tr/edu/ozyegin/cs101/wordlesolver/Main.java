@@ -7,7 +7,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         WordList wordList = new WordList();
-        wordList.loadWords("/home/tachyonos/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+        wordList.loadWords("C:/Users/arhan/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
 
         int n = 0, sum = 0;
 
@@ -24,7 +24,7 @@ public class Main {
 
     public static int playWordle(Wordle wordle) throws IOException {
         WordList wordList = new WordList();
-        wordList.loadWords("/home/tachyonos/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+        wordList.loadWords("C:/Users/arhan/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
 
         boolean finished = false;
         Scanner scanner = new Scanner(System.in);
@@ -82,7 +82,10 @@ public class Main {
             wordList.reduce(new Word(guess), actualFeedback);
             if (actualFeedback.isAllGreen()) {
                 JOptionPane.showMessageDialog(null, "We have guessed the word correctly!");
+                System.exit(0);
                 finished = true;
+                break;
+
             }
         }
         return guessCount;
