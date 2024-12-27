@@ -18,6 +18,7 @@ public class Main {
             n++;
             sum += guesses;
             JOptionPane.showMessageDialog(null, "Played " + n + " times used " + guesses + " guesses, average: " + (double) sum / n);
+            System.exit(0);
         }
     }
 
@@ -82,7 +83,6 @@ public class Main {
             wordList.reduce(new Word(guess), actualFeedback);
             if (actualFeedback.isAllGreen()) {
                 JOptionPane.showMessageDialog(null, "We have guessed the word correctly!");
-                System.exit(0);
                 finished = true;
                 break;
 
