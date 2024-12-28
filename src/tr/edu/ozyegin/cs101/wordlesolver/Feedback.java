@@ -36,8 +36,6 @@ public class Feedback {
             }
 
         }
-
-
     }
 
     public boolean isAllGreen(){

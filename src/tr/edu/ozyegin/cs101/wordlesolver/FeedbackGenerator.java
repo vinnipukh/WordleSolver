@@ -16,16 +16,15 @@ public class FeedbackGenerator {
 
         for (int i = 0; i < guessChars.length; i++) {
             if (guessChars[i] == actualChars[i]) {
-                feedback[i] = Feedback.GREEN; // Correct position
+                feedback[i] = Feedback.GREEN;
             } else if (new String(actualChars).contains(String.valueOf(guessChars[i]))) {
-                feedback[i] = Feedback.YELLOW; // Correct letter, wrong position
+                feedback[i] = Feedback.YELLOW;
             } else {
-                feedback[i] = Feedback.BLACK; // Incorrect letter
+                feedback[i] = Feedback.BLACK;
             }
         }
 
-        // Convert feedback array to String
-        StringBuilder feedbackString = new StringBuilder();
+         StringBuilder feedbackString = new StringBuilder();
         for (int f : feedback) {
             switch (f) {
                 case Feedback.GREEN:
@@ -40,6 +39,10 @@ public class FeedbackGenerator {
             }
         }
 
+
+
         return new Feedback(feedbackString.toString());
+
+
     }
 }

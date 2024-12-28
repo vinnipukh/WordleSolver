@@ -16,7 +16,6 @@ public class Word {
         boolean[] usedInActual = new boolean[WordleSolver.WORD_SIZE];
         boolean[] usedInGuess = new boolean[WordleSolver.WORD_SIZE];
 
-        // First pass: mark greens
         for (int i = 0; i < WordleSolver.WORD_SIZE; i++) {
             if (this.word.charAt(i) == actualWord.word.charAt(i)) {
                 feedback[i] = Feedback.GREEN;
@@ -27,7 +26,6 @@ public class Word {
             }
         }
 
-        // Second pass: mark yellows
         for (int i = 0; i < WordleSolver.WORD_SIZE; i++) {
             if (feedback[i] == Feedback.GREEN) continue;
 
@@ -40,7 +38,6 @@ public class Word {
             }
         }
 
-        // Convert feedback array to String
         StringBuilder feedbackString = new StringBuilder();
         for (int f : feedback) {
             switch (f) {
@@ -55,6 +52,8 @@ public class Word {
                     break;
             }
         }
+
+
 
 
         return new Feedback(feedbackString.toString());

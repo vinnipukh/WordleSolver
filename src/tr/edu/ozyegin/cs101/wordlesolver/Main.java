@@ -53,7 +53,7 @@ public class Main {
 
             guessCount++;
             if (wordList.getWords().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "The word is not in the word list. Try again!");
+                JOptionPane.showMessageDialog(null, "The word is not in the word list.I give up...");
                 finished = true;
                 break;
             }
