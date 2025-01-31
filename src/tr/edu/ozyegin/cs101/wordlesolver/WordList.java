@@ -1,8 +1,6 @@
 package tr.edu.ozyegin.cs101.wordlesolver;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +15,9 @@ public class WordList {
     public void loadWords(String path) throws IOException {
         this.words = new ArrayList<>();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+        // Use getResourceAsStream to load from the JAR's classpath
+        try (InputStream inputStream = getClass().getResourceAsStream("/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 this.words.add(line);

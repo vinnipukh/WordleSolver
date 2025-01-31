@@ -7,7 +7,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         WordList wordList = new WordList();
-        wordList.loadWords("C:/Users/arhan/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+        wordList.loadWords("words.txt");
 
         int n = 0, sum = 0;
 
@@ -25,7 +25,7 @@ public class Main {
 
     public static int playWordle(Wordle wordle) throws IOException {
         WordList wordList = new WordList();
-        wordList.loadWords("C:/Users/arhan/IdeaProjects/WordleSolver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+        wordList.loadWords("words.txt");
 
         boolean finished = false;
         Scanner scanner = new Scanner(System.in);
