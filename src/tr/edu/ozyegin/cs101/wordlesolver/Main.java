@@ -8,6 +8,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         WordList wordList = new WordList();
         wordList.loadWords("words.txt");
+        PopupUtil.setDarkMode(true);
+
 
         int n = 0, sum = 0;
 
@@ -59,7 +61,8 @@ public class Main {
             }
 
             String guess = wordList.getWords().get(index);
-            JOptionPane.showMessageDialog(null, "My guess is: " + guess);
+            String definition = DictionaryLookup.getDefinition(guess);
+            PopupUtil.showResizablePopup("Guess & Definition","My guess is " + guess + "\n" +definition,400,200);
 
             double probability = calculateProbability(wordList, new Word(guess));
             JOptionPane.showMessageDialog(null, "Probability of this being the correct word: " + probability * 100 + "%");
@@ -67,6 +70,15 @@ public class Main {
             Feedback actualFeedback;
             String feedback;
             boolean isValid;
+
+
+            if(guessCount==1){
+                JOptionPane.showMessageDialog(null,
+                        "The feedback should be in this form ggbyy or GGBBY. " +
+                                "Use the letters g for green, b for black, y for yellow letters.");
+
+            }
+
 
             do {
                 feedback = JOptionPane.showInputDialog("Enter feedback:");
