@@ -12,3 +12,10 @@ Our project got 11 out of 10 points, our instructor decided to reward us with an
 
 # The sauna issue:
 ![saunaissue](https://github.com/user-attachments/assets/8a20e157-c651-4423-95c8-ae65bccec43f)
+
+## Authors
+
+Built collaboratively for the CS101 course at Özyeğin University by:
+
+- **Batu Önlükuş** — [@batuonlukus](https://github.com/batuonlukus)
+- **Arhan** — [@vinnipukh](https://github.com/vinnipukh)
